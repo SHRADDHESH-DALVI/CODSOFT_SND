@@ -1,0 +1,177 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Stud
+{
+    private String name;
+    private int RollNO;
+    private String grade;
+
+    public Stud(String name, int RollNO , String grade)
+    {
+        this.name = name;
+        this.RollNO=RollNO;
+        this.grade = grade ;
+
+    }
+    public String getName()
+    {
+        return name;
+    }
+
+    public int getRollNO()
+    {
+        return RollNO;
+    }
+    public String getGrade()
+    {
+        return grade;
+    }
+
+    public String ToString()
+    {
+        return "  Name:"+ name +"  Roll number :"+ RollNO +"  Grade:" + grade ;
+
+    }
+}
+class StudManSystem1
+
+{
+    private ArrayList<Stud> studs;
+    public StudManSystem1()
+    {
+        this.studs = new ArrayList<>();
+    }
+    public void addStudents( Stud stud)
+    {
+        studs.add(stud);
+    }
+    public void removeStudent(int RollNO)
+    {
+        studs.removeIf(stud -> stud.getRollNO()==RollNO);
+    }
+    public Stud searchStud(int RollNO)
+    {
+        for (Stud stud : studs)
+        {
+            if (stud.getRollNO()== RollNO)
+            {
+                return stud;
+            }
+        }
+        return null;
+    }
+    public void displayStudList()
+    {
+        System.out.println("List of students:");
+        for (Stud stud : studs)
+        {
+            System.out.println(stud);
+        }
+    }
+}
+public class  StudManSystem
+{
+    public static void main ( String[] args)
+    {
+        StudentManagementSystem system= new StudentManagementSystem();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true)
+        {
+            System.out.println("**************************\n" +
+                               "          MENU\n" +
+                    "**************************");
+            System.out.println("1. ADD STUDENT ");
+            System.out.println("2. REMOVE STUDENT  ");
+            System.out.println("3. SEARCH FOR STUDENT  ");
+            System.out.println("4. DISPLAY ALL STUDENTS ");
+            System.out.println("5. EXIT ");
+            System.out.println("**************************\n" );
+
+            System.out.println("Enter your choice : ");
+            int CH = scanner.nextInt();
+            switch (CH)
+            {
+                case 1:
+                    System.out.println("Enter name : ");
+                    String name = scanner.next();
+                    System.out.print("Enter Roll Number : ");
+                    int RollNO = scanner.nextInt();
+                    Student foundStudent =system.searchStudent(RollNO);
+                    if(foundStudent != null )
+                    {
+                        System.out.println(" uff Sorry ..! ,this roll no. of student already exist : "+
+                                foundStudent+
+                                "\n You can't add this Roll number ");
+                        break;
+                    }
+                    else
+                    {
+                        System.out.println("You can add this Roll number ");
+                    }
+
+                    System.out.print("Enter Grade: ");
+                    String grade = scanner.next();
+
+                    Student newStudent = new Student(name , RollNO , grade );
+                    system.addStudent(newStudent);
+                    System.out.println("Student added Successfully !!!");
+                    break;
+
+                case 2:
+                    System.out.println("Enter Roll Number To Remove: ");
+                    int RolltoRemove = scanner.nextInt();
+                    system.removeStudent(RolltoRemove);
+                    System.out.println("Student Remove Successfully..!");
+                    break;
+
+                case 3:
+                    System.out.println("Enter Roll Number To Search : ");
+                    int RolltoSearch = scanner.nextInt();
+                    Student foundStudent1 = system.searchStudent(RolltoSearch);
+                    if (foundStudent1 != null )
+                    {
+                        System.out.println("Student Found: " + foundStudent1);
+                    }
+                    else
+                    {
+                        System.out.println("Student not found.");
+                    }
+                    break;
+
+                case 4:
+                    system.displayAllStudents();
+                    System.out.println(" ..........*etc..* ");
+                    break;
+
+                case 5:
+                    System.out.println("Exiting the Application . Goodbye!!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. (*_*) please Enter a valid option.");
+
+
+
+
+            }
+
+
+
+
+        }
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
